@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arbeitsplan</title>
+<style>
+body{
+    margin: 0;
+    top: 0;
+    right: 0;
+    left: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;    
+}
+.header{
+    width: 100vw;
+    background-color: rgb(24, 24, 99);
+    height: 4rem;
+    top:0;
+    left:0;
+    position: fixed;
+}
+.insideHeader{
+    position: relative;
+    text-align: center;
+    justify-content: center;
+    margin: 16px;
+    color: white;
+    font-size: 2rem;
+    z-index:1; 
+}
+.content{
+    content: "";
+    background-color: rgb(131, 154, 255);
+    margin: 1rem;
+    padding: 2rem;
+    border-radius: 32px;    
+}
+.contentColumn{
+    content: "";
+    background-color: rgb(67, 76, 95);
+    text-align: center;
+    margin-top:0;
+    border-right-style: solid;
+    border-left-style: solid;
+    border-width: 1px;
+    border-color:rgb(24, 24, 99) ;       
+}
+.contentBox{
+    top: 16rem;
+    height: 3000px;
+    width: 100vw;
+    position:absolute;
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+.inputText{
+    position: absolute;
+    top: 4rem;
+    justify-content: center;
+    text-align: center;
+    width: 100vw;
+    background-color: rgb(34, 34, 126);
+    height: 4rem;
+}
+.textfield{
+    margin-top:8px;
+    width: 50vw;
+    border-radius: 2rem;
+    font-size: 1.4rem;
+    height: 2rem;
+    position: relative;
+}
+.button{
+    margin-top: 1rem;
+    width: 20vw;
+    border-radius: 2rem;
+    height: 2.5rem;
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 26, 73);
+    font-size: 1.4rem;
+}
+.button:hover{
+    margin-top: 1rem;
+    width: 20vw;
+    border-radius: 2rem;
+    height: 2.5rem ;
+    color: rgb(255, 255, 255);
+    background-color: rgb(51, 55, 158);
+    font-size: 1.4em;
+}
+.overviewHeadlineColumn{
+    position: absolute;
+    height: 4rem;
+    top: 12rem;
+    background-color: rgb(24, 24, 99);
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+   
+}
+.headlineColumn{
+    margin: auto;
+    font-size: 2rem;
+    color: white;
+}
+.overviewButton{
+    top: 8rem ;
+    height: 4rem;
+    width: 76vw;
+    padding-left: 12vw;
+    padding-right: 12vw;
+    background-color: rgb(34, 34, 126);
+    position: absolute;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;   
+}
+.importanceButton1{
+    width: 20vw;
+    height: 2.5rem;
+    margin: auto;
+    border-radius: 2rem;
+    font-size: 1.4rem;
+    background-color: rgb(87, 87, 255);
+    color: white;
+}
+.importanceButton2{
+    width: 20vw;
+    height: 2.5rem;
+    margin: auto;
+    border-radius: 2rem;
+    font-size: 1.4rem;
+    background-color: rgb(41, 41, 151);
+    color: white;
+}
+.importanceButton3{
+    width: 20vw;
+    height: 2.5rem;
+    margin: auto;
+    border-radius: 2rem;
+    font-size: 1.4rem;
+    background-color: rgb(21, 21, 87);
+    color: white;
+}
+.importanceButton1:hover{
+    width: 20vw;
+    height: 2.5rem;
+    margin: auto;
+    border-radius: 2rem;
+    font-size: 1.4rem;
+    background-color: rgb(21, 22, 87);
+    color: white;
+}
+.importanceButton2:hover{
+    width: 20vw;
+    height: 2.5rem;
+    margin: auto;
+    border-radius: 2rem;
+    font-size: 1.4rem;
+    background-color: rgb(41, 43, 133);
+    color: white;
+}
+.importanceButton3:hover{
+    width: 20vw;
+    height: 2.5rem;
+    margin: auto;
+    border-radius: 2rem;
+    font-size: 1.4rem;
+    background-color: rgb(63, 61, 170);
+    color: white;
+}
+.deleteButton{
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    height: 3rem;
+    width: 6rem;
+    border-radius: 2rem;
+    background-color: rgb(17, 17, 75);
+    color: white;
+}
+.deleteButton:hover{
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
+    height: 3rem;
+    width: 6rem;
+    border-radius: 2rem;
+    background-color: rgb(206, 206, 255);
+    color: rgb(0, 0, 0);
+}
+
+</style>
+<script>
+    let firstColumnArray=loadfromLocalStorage(1)
+    let secondColumnArray=loadfromLocalStorage(2)
+    let thirdColumnArray=loadfromLocalStorage(3)
+
+    let firstColumnArrayColor=loadColorLocalStorage(1)
+    let secondColumnArrayColor=loadColorLocalStorage(2)
+    let thirdColumnArrayColor=loadColorLocalStorage(3)
+  
+    let importaince = "green";
+    function importaince1(){
+    importaince = "green"}
+    function importaince2(){
+    importaince = "orange"}
+    function importaince3(){
+    importaince = "red"}
+    
+    function loadfromLocalStorage(n){
+       
+            itemkey= "itemkey"+n
+            let items=localStorage.getItem(itemkey)
+
+            if (items == null || items == '') {
+                items = [];
+            } else {
+                items = items.split(',');
+            }
+
+            return items;
+            items=[];
+                    
+    }
+    function loadColorLocalStorage(n){
+       
+            itemkey= "itemcolor"+n
+            let items=localStorage.getItem(itemkey)
+
+            if (items == null || items == '') {
+                items = [];
+            } else {
+                items = items.split(',');
+            }
+
+            return items;
+            items=[];
+               
+}
+    
+
+    function add(){
+        if(textfield.value==""||textfield.value==null){
+        refresh();
+        }else{  
+        let newpoint = textfield.value
+        textfield.value="";
+        firstColumnArray.push(newpoint);
+        localStorage.setItem("itemkey1",firstColumnArray)
+        let color = importaince
+        firstColumnArrayColor.push(color);
+        localStorage.setItem("itemcolor1",firstColumnArrayColor)
+
+        refresh();}
+    }
+
+    function refresh() {
+        firstColumn.innerHTML = ``;
+
+        for (let i = 0; i < firstColumnArray.length; i++) {
+        firstColumn.innerHTML += `
+        <div class="content" id="contentid1${i}" onclick="nextColumn2(${i})">${firstColumnArray[i]}</div>
+        `;
+        document.getElementById("contentid1"+i).style.backgroundColor=firstColumnArrayColor[i];
+        }
+        secondColumn.innerHTML = ``;
+
+        for (let i = 0; i < secondColumnArray.length; i++) {
+        secondColumn.innerHTML += `
+        <div class="content" id="contentid2${i}" onclick="nextColumn3(${i})">${secondColumnArray[i]}</div>
+        `;
+        document.getElementById("contentid2"+i).style.backgroundColor=secondColumnArrayColor[i];
+        }
+        thirdColumn.innerHTML = ``;
+
+        for (let i = 0; i < thirdColumnArray.length; i++) {
+        thirdColumn.innerHTML += `
+        <div class="content" id="contentid3${i}" onclick="nextColumnDel(${i})">${thirdColumnArray[i]}</div>
+        `;
+        document.getElementById("contentid3"+i).style.backgroundColor=thirdColumnArrayColor[i];
+        }
+    }
+    function nextColumn2(i){
+        secondColumnArray.push(firstColumnArray[i])
+        localStorage.setItem("itemkey2",secondColumnArray)
+        firstColumnArray.splice(i,1)
+        localStorage.setItem("itemkey1",firstColumnArray)
+        secondColumnArrayColor.push(firstColumnArrayColor[i])
+        localStorage.setItem("itemcolor2",secondColumnArrayColor)
+        firstColumnArrayColor.splice(i,1)
+        localStorage.setItem("itemcolor1",firstColumnArrayColor)
+        refresh();
+    }
+    function nextColumn3(i) {
+        thirdColumnArray.push(secondColumnArray[i])
+        localStorage.setItem("itemkey3",thirdColumnArray)
+        secondColumnArray.splice(i,1)
+        localStorage.setItem("itemkey2",secondColumnArray)
+        thirdColumnArrayColor.push(secondColumnArrayColor[i])
+        localStorage.setItem("itemcolor3",thirdColumnArrayColor)
+        secondColumnArrayColor.splice(i,1)
+        localStorage.setItem("itemcolor2",secondColumnArrayColor)
+        refresh();
+    }
+    function nextColumnDel(i) {
+        thirdColumnArray.splice(i,1)
+        localStorage.setItem("itemkey3",thirdColumnArray)
+        thirdColumnArrayColor.splice(i,1)
+        localStorage.setItem("itemcolor3",thirdColumnArrayColor)
+        refresh();
+    }
+    function del(){
+        for (let i = 0; i <= 3; i++) {
+
+            firstColumnArray=[];
+            firstColumnArrayColor=[];
+            secondColumnArray=[];
+            secondColumnArrayColor=[];
+            thirdColumnArray=[];
+            thirdColumnArrayColor=[];
+
+            localStorage.setItem("itemkey"+i,[])
+            localStorage.setItem("itemcolor"+i,[])
+        }
+        refresh();
+    }
+</script>
+</head>
+<body onload="refresh()">
+    <form onsubmit="add();return false;">
+    <div class="inputText">
+        <input class="textfield" id="textfield";type="text">
+        <button type="submit" class="button" id="button">Eintragen</button>
+    </div>
+    
+    <div class="overviewButton">
+        <button onclick="importaince1()"class="importanceButton1">normal</button>
+        <button onclick="importaince2()"class="importanceButton2">wichtig</button>
+        <button onclick="importaince3()"class="importanceButton3">sehr wichtig</button>
+    </div></form>
+    <div class="overviewHeadlineColumn">
+        <div class="headlineColumn">Zu Arbeiten</div>
+        <div class="headlineColumn">In Arbeit</div>
+        <div class="headlineColumn">Fertig</div>
+    </div>
+    
+    <div class="contentBox">
+        <div class="contentColumn">
+            <div id="firstColumn"></div> 
+        </div>
+        <div class="contentColumn">   
+            <div id="secondColumn"></div>
+        </div> 
+        <div class="contentColumn">  
+            <div id="thirdColumn"></div>
+        </div> 
+    </div>
+    <div class="header">
+        <div class="insideHeader">Arbeitsplan</div>
+    </div>
+    <button class="deleteButton" onclick="del()">Entfernen</button>
+</body>
+</html>
